@@ -1,0 +1,21 @@
+/* Custom CSS goes here */
+
+.navbar {
+    background: linear-gradient(135deg, #f2f9fe 0%, #d6f0fd 100%);
+}
+
+.card-user {
+    max-width: 80px;
+}
+
+.navbar-avatar {
+    height: 30px;
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+
+
+.hero-unit {
+    background: url('../img/books_bg_2.jpg') no-repeat;
+}
+

@@ -1,0 +1,105 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>
+        {% block title %}
+            The Book Club
+        {% endblock title %}
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css" rel="stylesheet" integrity="sha384-4HfFay3AYJnEmbgRzxYWJk/Ka5jIimhB/Fssk7NGT9Tj3rkEChpSxLK0btOGzf2I" crossorigin="anonymous">
+    <link href="{% static 'css/signinform.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+
+  </head>
+
+<body>
+
+<nav class="navbar navbar-expand-md shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="/">The Book Club</a>
+
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+                ☰
+            </span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item ml-5">
+                        <a href="/list/create/" class="btn btn-primary">
+                            + Create Book List
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav ml-auto">
+
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}" >Sign Out</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'view_profile' request.user %}" >
+                            {{ request.user }}
+                            <img src="{{ user.gravatar }}" class="navbar-avatar" />
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">Sign up</a>
+                    </li>
+                {% endif %}
+            </ul>
+
+        </div>
+    </nav>
+</div>
+
+{# Only show this if 1) user is logged out, and 2) we're not on a page with a form #}
+{% if not request.user.is_authenticated and not form %}
+    <div class="mb-5 pt-3 pb-3 shadow hero-unit">
+        <div class="container">
+            <h1 class="text-light">The Book Club</h1>
+            <p>Welcome to <em>The Book Club</em>, where you vote on great reading lists!</p>
+            <p>
+                <a class="btn btn-lg btn-secondary" href="{% url 'signup' %}">Sign-up to get booking!</a>
+                <a class="btn btn-link text-light" href="{% url 'login' %}">Already have an account? Log in now!</a>
+            </p>
+        </div>
+    </div>
+{% endif %}
+
+{% block main %}
+    <div class="container pt-3">
+
+      {# Enable Django's "messages" system #}
+      {% if messages %}
+          {% for message in messages %}
+              <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+          {% endfor %}
+      {% endif %}
+
+      {% block content %}
+        <p>Be sure to override the "content" template tag!</p>
+      {% endblock content %}
+
+    </div>
+{% endblock main %}
+
+
+  </body>
+</html>
+

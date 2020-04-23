@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Book Club - Reading Lists
+{% endblock title %}
+
+{% block content %}
+<h1>
+    {{ reading_list.name }}
+    <span class="badge badge-info">{{ reading_list.topic }}</span>
+
+</h1>
+
+{% if user.is_authenticated and reading_list.creator_user == user %}
+    <p>
+        <a href="/book-create/{{ reading_list.id }}/" class="btn btn-primary btn-lg">
+            + Add Book
+        </a>
+        <a href="/list/delete/{{ reading_list.id }}/" class="btn btn-outline-danger btn-sm ml-5">Delete "{{reading_list.name }}"</a>
+    </p>
+{% endif %}
+
+{% for book in all_books %}
+    <div class="media mt-5 border rounded shadow">
+        {% if book.cover_url %}
+            <img src="{{ book.cover_url }}" alt="Book cover" />
+        {% else %}
+            <img src="https://i.imgur.com/dMlC0dn.png" alt="Book icon" />
+        {% endif %}
+        <div class="media-body ml-3">
+            <h5>{{ book.title }}</h5>
+            <p>{{ book.description|escape|linebreaks }}</p>
+        </div>
+
+        {% if request.user == reading_list.creator_user %}
+            <a href="/book-delete/{{ book.id }}/" class="btn btn-outline-danger btn-sm">X</a>
+        {% endif %}
+    </div>
+{% endfor %}
+
+{% endblock content %}
+

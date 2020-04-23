@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    @{{ user.username }}
+{% endblock title %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <img src="{{ user.gravatar }}" />
+
+        <h3>@{{ user.username }}</h3>
+        <p><strong>{{ user.first_name }} {{ user.last_name }}</strong></p>
+        <p>{{ user.bio }}</p>
+
+        {% if is_viewing_self %}
+            <a href="{% url "edit_profile" %}">Edit</a>
+        {% endif %}
+    </div>
+
+    <div class="col-md-9">
+
+        {% for rl in user_reading_lists %}
+            <!-- Loop through each Reading List and display it -->
+            <div class="media mt-3 border rounded shadow-sm">
+                <!-- This shows the "name" of the Reading List as a link to the full
+                    details of that list -->
+                <div class="media-body ml-3 mt-1 mb-1 position-relative">
+                    <h5><a href="/list/{{ rl.id }}/" class="stretched-link">{{ rl.name }} <span class="badge badge-primary ml-2">{{ rl.topic }}</span></a></h5>
+                </div>
+
+                <!-- This shows the creation date of the list -->
+                <p>on {{ rl.created|date:"F jS Y" }}</p>
+            </div>
+        {% endfor %}
+
+
+    </div>
+</div>
+{% endblock %}
+

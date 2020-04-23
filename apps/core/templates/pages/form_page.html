@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block title %}
+    Book Club - Edit
+{% endblock title %}
+
+{% block content %}
+<div class="card border rounded">
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button class="btn btn-lg btn-primary btn-block">Save</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
