@@ -1,11 +1,14 @@
 /* Custom CSS goes here */
-
-.navbar {
-    background: linear-gradient(135deg, #f2f9fe 0%, #d6f0fd 100%);
-}
-
 .card-user {
     max-width: 80px;
+}
+
+.bi {
+    /* Style Boostrap icons a bit better */
+    display: inline-block;
+    margin-bottom: 3px;
+    margin-right: 2px;
+    margin-left: 2px;
 }
 
 .navbar-avatar {
@@ -14,6 +17,9 @@
     margin-bottom: -10px;
 }
 
+.navbar {
+    background: url('../img/books_bg_2.jpg') no-repeat 50% 50%;
+}
 
 .hero-unit {
     background: url('../img/books_bg_2.jpg') no-repeat;
