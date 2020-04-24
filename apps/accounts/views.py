@@ -53,14 +53,6 @@ def logout_view(request):
     return redirect('home')
 
 
-def view_all_users(request):
-    all_users = User.objects.all()
-    context = {
-        'users': all_users,
-    }
-    return render(request, 'accounts/view_all_users.html', context)
-
-
 def view_profile(request, username):
     user = User.objects.get(username=username)
 

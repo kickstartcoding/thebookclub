@@ -1,24 +1,32 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Book Club - Reading Lists
+    {{ reading_list }} - The Book Club
 {% endblock title %}
 
 {% block content %}
-<h1>
-    {{ reading_list.name }}
-    <span class="badge badge-info">{{ reading_list.topic }}</span>
+<h1> {{ reading_list }} <span class="badge badge-info">{{ reading_list.category }}</span> </h1>
 
-</h1>
-
-{% if user.is_authenticated and reading_list.creator_user == user %}
-    <p>
-        <a href="/book-create/{{ reading_list.id }}/" class="btn btn-primary btn-lg">
-            + Add Book
-        </a>
-        <a href="/list/delete/{{ reading_list.id }}/" class="btn btn-outline-danger btn-sm ml-5">Delete "{{reading_list.name }}"</a>
+<blockquote class="blockquote">
+    <p class="mb-0">
+        {{ reading_list.description }}
     </p>
-{% endif %}
+    <footer class="blockquote-footer">
+        <a class="btn btn-outline-primary mr-3" href="{% url "view_profile" reading_list.creator_user.username %}">
+            {{ reading_list.creator_user }}
+        </a>
+        {{ reading_list.created|date:"F jS Y" }}
+        |
+        {% include "snippets/icons/book.svg" %}
+        {{ reading_list.vote_points }} points
+        {% if user.is_authenticated and reading_list.creator_user == user %}
+            |
+            {{ reading_list.views }} views
+            -
+            <a href="/list/delete/{{ reading_list.id }}/" class="btn btn-outline-danger btn-sm ml-auto">Delete this list</a>
+        {% endif %}
+    </footer>
+</blockquote>
 
 {% for book in all_books %}
     <div class="media mt-5 border rounded shadow">
@@ -33,10 +41,22 @@
         </div>
 
         {% if request.user == reading_list.creator_user %}
-            <a href="/book-delete/{{ book.id }}/" class="btn btn-outline-danger btn-sm">X</a>
+            <a href="/book-delete/{{ book.id }}/" class="btn btn-outline-danger btn-sm">
+                {% include "snippets/icons/trash.svg" %}
+            </a>
         {% endif %}
     </div>
 {% endfor %}
+
+
+{% if user.is_authenticated and reading_list.creator_user == user %}
+    <p class="mt-5">
+        <a href="/book-create/{{ reading_list.id }}/" class="btn btn-outline-primary btn-lg btn-block">
+            {% include "snippets/icons/plus.svg" %} 
+            Book
+        </a>
+    </p>
+{% endif %}
 
 {% endblock content %}
 

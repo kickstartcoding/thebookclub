@@ -22,3 +22,7 @@ class User(AbstractUser):
 
         return GRAVATAR_URL % (digest, size_str)
 
+    def get_absolute_url(self):
+        return '/account/users/' + self.username + '/'
+
+

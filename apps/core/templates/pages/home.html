@@ -6,43 +6,7 @@
 
 {% block content %}
 
-<h2>What's trending</h2>
-
-{% for rl in all_reading_lists %}
-    <!-- Loop through each Reading List and display it -->
-
-    <div class="media mt-3 border rounded shadow-sm">
-
-        <!-- If the user is logged-in, show vote up and down arrows. Otherwise
-             just show the votes -->
-        <div class="btn-group btn-group-sm p-1">
-            {% if user.is_authenticated %}
-                <a href="/list/{{ rl.id }}/vote/up/" class="btn btn-outline-primary">&uarr;</a>
-            {% endif %}
-            <a class="btn btn-outline-dark disabled">{{ rl.votes }} points</a>
-            {% if user.is_authenticated %}
-                <a href="/list/{{ rl.id }}/vote/down/" class="btn btn-outline-danger">&darr;</a>
-            {% endif %}
-        </div>
-
-        <!-- This shows the "name" of the Reading List as a link to the full
-             details of that list -->
-        <div class="media-body ml-3 mt-1 mb-1 position-relative">
-            <h5><a href="/list/{{ rl.id }}/" class="stretched-link">{{ rl.name }} <span class="badge badge-primary ml-2">{{ rl.topic }}</span></a></h5>
-        </div>
-
-        <!-- This shows the creation date of the list, along with the avatar
-             and username of the creator -->
-        <div>
-            on {{ rl.created|date:"F jS Y" }} by
-            <a class="btn btn-link" href="/account/users/{{ rl.creator_user.username }}/" >
-                {{ rl.creator_user }}
-                <img src="{{ rl.creator_user.gravatar }}" class="navbar-avatar" />
-            </a>
-        </div>
-    </div>
-{% endfor %}
-
+{% include "snippets/reading_lists.html" %}
 
 {% endblock content %}
 

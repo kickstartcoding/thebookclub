@@ -1,16 +1,13 @@
 from django import forms
+from apps.core.models import Book, ReadingList
 
-class AddBookForm(forms.Form):
-    title = forms.CharField()
-    description = forms.CharField(widget=forms.Textarea)
+class AddBookForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = ['title', 'description']
 
-GENRES = [
-    ('fiction', 'Adult Fiction'),
-    ('nonfiction', 'Adult Non-Fiction'),
-    ('children', "Children's Books"),
-]
-
-class AddReadingListForm(forms.Form):
-    name = forms.CharField()
-    topic = forms.ChoiceField(choices=GENRES)
+class AddReadingListForm(forms.ModelForm):
+    class Meta:
+        model = ReadingList
+        fields = ['title', 'category', 'description', 'tags']
 

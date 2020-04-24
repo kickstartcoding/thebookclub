@@ -1,5 +1,7 @@
 from django.shortcuts import redirect
+from django.db.models import F
 import requests
+
 
 API_URL_PREFIX = 'http://openlibrary.org/search.json?limit=1&title='
 
@@ -13,13 +15,12 @@ def get_book_cover_url_from_api(title, size='S', info=None):
     'http://covers.openlibrary.org/b/id/7460251-M.jpg'
     '''
     if not info:
-        info = get_book_info_from_api(title, size='S')
+        info = get_book_info_from_api(title)
     url = ''
-    if 'cover_i' in info:
+    if info and 'cover_i' in info:
         cover_id = info['cover_i']
         url = f'http://covers.openlibrary.org/b/id/{cover_id}-{size}.jpg'
     return url
-
 
 def get_book_info_from_api(title):
     '''
