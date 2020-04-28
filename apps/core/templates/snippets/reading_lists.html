@@ -1,25 +1,36 @@
+{% load bootstrap4 %}
 
-{# We defined custom templating features in the bookclub_tags file #}
+{# We defined custom templating features in the bookclub_tags.py file #}
 {% load bookclub_tags %}
+
+
+
+{% if results_page.has_other_pages %}
+    <div class="mb-5">
+        {% bootstrap_pagination results_page %}
+    </div>
+{% endif %}
 
 {% for rl in reading_lists %}
     <!-- Loop through each Reading List and display it -->
 
     <div class="media mt-3 border rounded shadow-sm">
 
-        <!-- If the user is logged-in, show vote up and down arrows. Otherwise
-             just show the votes -->
-        <div class="btn-group btn-group-sm p-1">
-            {% if user.is_authenticated %}
-                <a href="/list/{{ rl.id }}/vote/up/" class="btn {% if_voted_on_reading_list rl relevant_votes 1 "btn-primary" "btn-outline-primary" %}">&uarr;</a>
-            {% endif %}
+        {% if show_voting %}
+            <!-- If the user is logged-in, show vote up and down arrows. Otherwise
+                just show the votes -->
+            <div class="btn-group btn-group-sm p-1">
+                {% if user.is_authenticated %}
+                    <a href="/list/{{ rl.id }}/vote/up/" class="btn {% if_voted_on_reading_list rl relevant_votes 1 "btn-primary" "btn-outline-primary" %}">&uarr;</a>
+                {% endif %}
 
-            <a class="btn btn-outline-dark disabled" title="The Algorithm Score: {{ rl.score }}">{{ rl.vote_points }}</a>
+                <a class="btn btn-outline-dark disabled" title="The Algorithm Score: {{ rl.score }}">{{ rl.vote_points }}</a>
 
-            {% if user.is_authenticated %}
-                <a href="/list/{{ rl.id }}/vote/down/" class="btn {% if_voted_on_reading_list rl relevant_votes -1 "btn-danger" "btn-outline-danger" %}">&darr;</a>
-            {% endif %}
-        </div>
+                {% if user.is_authenticated %}
+                    <a href="/list/{{ rl.id }}/vote/down/" class="btn {% if_voted_on_reading_list rl relevant_votes -1 "btn-danger" "btn-outline-danger" %}">&darr;</a>
+                {% endif %}
+            </div>
+        {% endif %}
 
         <!-- This shows the "name" of the Reading List as a link to the full
              details of that list -->
@@ -30,12 +41,24 @@
         <!-- This shows the creation date of the list, along with the avatar
              and username of the creator -->
         <div>
-            on {{ rl.created|date:"F jS Y" }} by
-            <a class="btn btn-link" href="{% url "view_profile" rl.creator_user.username %}">
-                {{ rl.creator_user }}
-                <img src="{{ rl.creator_user.gravatar }}" class="navbar-avatar" />
-            </a>
+            on {{ rl.created|date:"F jS Y" }}
+            {% if show_author %}
+                by
+                <a class="btn btn-link" href="{% url "view_profile" rl.creator_user.username %}">
+                    {{ rl.creator_user }}
+                    <img src="{{ rl.creator_user.gravatar }}" class="navbar-avatar" />
+                </a>
+            {% endif %}
         </div>
     </div>
+
+{% empty %}
+    <div class="text-muted">No reading lists... yet!</div>
 {% endfor %}
 
+
+{% if results_page.has_other_pages %}
+    <div class="mt-5">
+        {% bootstrap_pagination results_page %}
+    </div>
+{% endif %}

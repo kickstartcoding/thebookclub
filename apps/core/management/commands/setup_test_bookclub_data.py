@@ -136,3 +136,54 @@ class Command(BaseCommand):
                 'Green Eggs and Ham',
             ])
 
+
+        create_reading_list(
+            user=jane,
+            title='19th Century Classics',
+            books=[
+                'Pride and Prejudice',
+                'Jane Eyre',
+                'Middlemarch',
+                'Moby Dick',
+                'Emma',
+                'War and Peace',
+                'Wuthering Heights',
+                'Dracula',
+                'Anna Karenina',
+            ])
+
+        create_reading_list(
+            user=jane,
+            title='Great American Novels',
+            books=[
+                'The Adventures of Huckleberry Finn',
+                'The Great Gatsby',
+                'Mason & Dixon',
+                'Moby Dick',
+                'The Grapes of Wrath',
+            ])
+
+        create_reading_list(
+            user=candy,
+            title='The origins of science fiction',
+            books=[
+                'Frankenstein',
+                'Journey to the Center of the Earth',
+                'From the Earth to the Moon',
+                'The Island of Doctor Moreau',
+                'The Last Man',
+            ])
+
+
+        create_reading_list(
+            user=candy,
+            title='Early Adult Fantasy Novels',
+            books=[
+                'The Worm Ouroboros',
+                'The Zimiamivia Trilogy',
+                "The King of Elfland's Daughter",
+                'The Gods of Pegana',
+                'At the Mountains of Madness',
+                'The Call of Cthulhu',
+            ])
+

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Book Club - Reading Lists
+{% endblock title %}
+
+{% block content %}
+
+{% include "snippets/reading_lists.html" with show_author=True show_voting=True %}
+
+{% endblock content %}
+

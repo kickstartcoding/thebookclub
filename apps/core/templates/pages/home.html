@@ -6,7 +6,16 @@
 
 {% block content %}
 
-{% include "snippets/reading_lists.html" %}
+
+<h1>What's trending right now</h1>
+
+{% include "snippets/reading_lists.html" with show_author=True %}
+
+<p class="mt-5">
+    <a class="btn btn-lg btn-outline-secondary btn-block" href="{% url "browse" %}">
+        See more trending books...
+    </a>
+</p>
 
 {% endblock content %}
 

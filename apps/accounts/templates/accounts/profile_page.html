@@ -20,20 +20,7 @@
 
     <div class="col-md-9">
 
-        {% for rl in user_reading_lists %}
-            <!-- Loop through each Reading List and display it -->
-            <div class="media mt-3 border rounded shadow-sm">
-                <!-- This shows the "name" of the Reading List as a link to the full
-                    details of that list -->
-                <div class="media-body ml-3 mt-1 mb-1 position-relative">
-                    <h5><a href="/list/{{ rl.id }}/" class="stretched-link">{{ rl }} <span class="badge badge-primary ml-2">{{ rl.category }}</span></a></h5>
-                </div>
-
-                <!-- This shows the creation date of the list -->
-                <p>on {{ rl.created|date:"F jS Y" }}</p>
-            </div>
-        {% endfor %}
-
+        {% include "snippets/reading_lists.html" reading_lists=user_reading_lists %}
 
     </div>
 </div>

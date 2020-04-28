@@ -4,7 +4,9 @@ from apps.core import views
 
 urlpatterns = [
     # CRUD views for ReadingLists
-    path('', views.reading_list_home, name="home"),
+    path('', views.homepage, name="home"),
+    path('browse/', views.browse, name="browse"),
+    path('browse/<slug:sort_by>', views.browse, name="browse"),
     path('<slug:list_slug>/', views.reading_list_details, name="view_list"),
     path('list/create/', views.reading_list_create),
     path('list/delete/<int:list_id>/', views.reading_list_delete),
